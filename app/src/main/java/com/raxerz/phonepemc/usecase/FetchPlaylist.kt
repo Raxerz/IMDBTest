@@ -4,13 +4,14 @@ import android.util.Log
 import com.raxerz.phonepemc.data.model.Movie
 import com.raxerz.phonepemc.data.model.PlaylistInfo
 import com.raxerz.phonepemc.data.repository.MoviesRepository
+import kotlinx.coroutines.flow.Flow
 
-typealias SavePlaylistUseCase = UseCase<PlaylistInfo, Unit>
+typealias FetchPlaylistUseCase = UseCase<Unit, Flow<List<PlaylistInfo>>>
 
-class SavePlaylist constructor(private val moviesRepository: MoviesRepository): SavePlaylistUseCase {
+class FetchPlaylist constructor(private val moviesRepository: MoviesRepository): FetchPlaylistUseCase {
 
-    override suspend fun perform(params: PlaylistInfo): Unit {
-        moviesRepository.savePlaylist(params)
+    override suspend fun perform(params: Unit): Flow<List<PlaylistInfo>> {
+        return moviesRepository.getPlaylists()
     }
 
 

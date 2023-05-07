@@ -8,6 +8,9 @@ import com.raxerz.phonepemc.data.remote.MoviesRemoteDataSource
 import com.raxerz.phonepemc.data.repository.MoviesRepository
 import com.raxerz.phonepemc.usecase.FetchMovies
 import com.raxerz.phonepemc.usecase.FetchMoviesUseCase
+import com.raxerz.phonepemc.usecase.FetchPlaylist
+import com.raxerz.phonepemc.usecase.FetchPlaylistUseCase
+import com.raxerz.phonepemc.usecase.SavePlaylist
 import com.raxerz.phonepemc.utils.Constants
 import com.raxerz.wordsearch.data.repository.local.PlaylistDao
 import com.raxerz.wordsearch.data.repository.local.PlaylistDatabase
@@ -32,6 +35,8 @@ val appModule = module {
     single { providePlaylistLocalDataSource(get()) }
     single { provideMoviesRepository(get(), get()) }
     single { provideFetchMoviesUseCase(get()) }
+    single { provideSavePlaylistUseCase(get()) }
+    single { provideFetchPlaylistUseCase(get()) }
 }
 
 fun provideCoroutineDispatchers(): CoroutineDispatchers = AppDispatchers()
@@ -91,6 +96,14 @@ fun provideMoviesRepository(moviesRemoteDataSource: MoviesRemoteDataSource,movie
 
 fun provideFetchMoviesUseCase(moviesRepository: MoviesRepository): FetchMovies {
     return FetchMovies(moviesRepository)
+}
+
+fun provideSavePlaylistUseCase(moviesRepository: MoviesRepository): SavePlaylist {
+    return SavePlaylist(moviesRepository)
+}
+
+fun provideFetchPlaylistUseCase(moviesRepository: MoviesRepository): FetchPlaylist {
+    return FetchPlaylist(moviesRepository)
 }
 
 

@@ -22,7 +22,11 @@ import coil.compose.rememberAsyncImagePainter
 import com.raxerz.phonepemc.R
 
 @Composable
-fun MovieItem(movie: com.raxerz.phonepemc.data.model.Result, onStarClicked: () -> Unit) {
+fun MovieItem(
+    movie: com.raxerz.phonepemc.data.model.Result,
+    playlistName: String,
+    onStarClicked: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -42,6 +46,7 @@ fun MovieItem(movie: com.raxerz.phonepemc.data.model.Result, onStarClicked: () -
                 Column(modifier = Modifier.weight(8f)) {
                     Text(text = movie.originalTitle)
                     Text(text = "Rating - ${movie.voteAvg}")
+                    Text(text = playlistName)
                 }
                 Column(modifier = Modifier.weight(2f)) {
                     Image(
